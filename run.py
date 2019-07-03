@@ -22,13 +22,3 @@ def create_tables():
 API.add_resource(resources.CreateBlog, '/create_blog')
 API.add_resource(resources.RetrieveBlogs, '/retrieve_blog/<int:user_id>')
 API.add_resource(resources.AllBlogs, '/blogs')
-
-# API.add_resource(resources.UserLogin, '/login')
-# API.add_resource(resources.UserLogoutAccess, '/logout/access')
-# API.add_resource(resources.UserLogoutRefresh, '/logout/refresh')
-# API.add_resource(resources.TokenRefresh, '/token/refresh')
-
-# API.add_resource(resources.CreateTeacher, '/create_teacher')
-# API.add_resource(resources.RetrieveTeacher, '/retrieve_teacher')
-# API.add_resource(resources.UpdateTeacher, '/update_teacher')
-# API.add_resource(resources.DeleteTeacher, '/delete_teacher')
