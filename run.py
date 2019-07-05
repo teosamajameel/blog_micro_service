@@ -20,5 +20,9 @@ def create_tables():
 
 
 API.add_resource(resources.CreateBlog, '/create_blog')
+API.add_resource(resources.DeleteBlog, '/delete_blog')
 API.add_resource(resources.RetrieveBlogs, '/retrieve_blog/<int:user_id>')
 API.add_resource(resources.AllBlogs, '/blogs')
+
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=5000)

@@ -8,6 +8,9 @@ blog_parser.add_argument('title', help='This field cannot be blank', required=Tr
 blog_parser.add_argument('body', help='This field cannot be blank', required=True)
 blog_parser.add_argument('total_views', help='This field cannot be blank', required=False)
 
+blog_delete_parser = reqparse.RequestParser()
+blog_delete_parser.add_argument('user_id', help='This field cannot be blank', required=True)
+blog_delete_parser.add_argument('blog_id', help='This field cannot be blank', required=True)
 
 class CreateBlog(Resource):
     def post(self):
@@ -26,8 +29,24 @@ class CreateBlog(Resource):
         try:
             new_blog.save_to_db()
             return {
+                'created': True,
                 'message': 'New Blog {} was created'.format(data['title'])
             }
+        except:
+            return {'message': 'Something went wrong'}, 500
+        return data
+
+
+class DeleteBlog(Resource):
+    def delete(self):
+        data = blog_delete_parser.parse_args()
+
+        blog_obj = BlogModel.get_blog(data['user_id'], data['blog_id'])
+        if not blog_obj:
+            return {'message': 'Blog {} does not exists'.format(data['blog_id'])}
+        try:
+            blog_id = blog_obj.delete_from_db()
+            return {'message': 'Blog {} deleted'.format(blog_id)}
         except:
             return {'message': 'Something went wrong'}, 500
         return data

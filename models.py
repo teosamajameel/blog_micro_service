@@ -17,11 +17,23 @@ class BlogModel(DB.Model):
     @staticmethod
     def to_json(x):
         return {
+            'blog_id': x.id,
             'user_id': x.user_id,
             'title': x.title,
             'body': x.body,
             'total_views': x.total_views
         }
+
+    @classmethod
+    def get_blog(cls, user_id, blog_id):
+        return cls.query.filter_by(user_id=user_id, id=blog_id).first()
+
+    def delete_from_db(self):
+        # deleting the record and updating the DB
+        blog_id = self.id
+        DB.session.delete(self)
+        DB.session.commit()
+        return blog_id
 
     @classmethod
     def find_by_user_id(cls, user_id):
